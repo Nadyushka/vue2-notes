@@ -1,28 +1,32 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <component :is="layoutComponent" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import StartPage from "@/layouts/StartPage.vue";
+import MainPage from "@/layouts/MainPage.vue";
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
-}
-</script>
+    StartPage,
+    MainPage
+  },
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  computed: {
+    layoutComponent() {
+      return this.$route.meta.layout === 'auth' ? StartPage : MainPage;
+    }
+  },
+
+  async mounted() {
+     try {
+      await this.$store.dispatch('authStore/me')
+     } catch (e) {
+       console.log(e)
+     }
+  }
+};
+
+</script>

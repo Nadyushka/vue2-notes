@@ -1,0 +1,40 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+
+.btn {
+    background-color: #B1C909;
+    border-radius: 32px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s all;
+}
+
+.btn:hover {
+    background-color: #97AB0D;
+}
+
+.btn:active {
+    background-color: #819400;
+}
+
+.btn_disabled {
+    background-color: #9DA5AF;
+}
+
+.input{
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.input:hover,
+.input:active,
+.input:focus {
+    outline: none;
+    border: 2px solid #B1C909 !important;
+}
+
