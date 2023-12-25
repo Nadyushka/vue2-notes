@@ -22,8 +22,18 @@ export default defineComponent({
 
   data () {
     return {
-      openAddNoteModal: false,
+      isAddNoteModalOpen: false,
     }
+  },
+
+  methods: {
+    closeModal() {
+      this.isAddNoteModalOpen = false
+    },
+
+    openModal() {
+      this.isAddNoteModalOpen = true
+    },
   }
 
 })
@@ -32,14 +42,21 @@ export default defineComponent({
 <template>
   <div class="home">
     <NoteItem :note="note" v-for="note in getNotes" :key="note.id"/>
-    <AddNoteDialog :openAddNoteModal="openAddNoteModal"/>
-    <button class="home__add-note btn"/>
+    <AddNoteDialog
+        @close-modal="closeModal"
+        :isAddNoteModalOpen="isAddNoteModalOpen"/>
+    <button
+        class="home__add-note btn"
+        @click="openModal"/>
   </div>
 </template>
 
 <style scoped>
 .home {
-
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
 }
 
 .home__add-note {

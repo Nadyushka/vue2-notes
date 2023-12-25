@@ -192,36 +192,6 @@ export default defineComponent({
   position: relative;
 }
 
-.dialog__close-btn {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 56px;
-  height: 56px;
-  border-radius: 32px;
-  background-color: #B1C909;
-  border: none;
-  background-image: url('@/assets/dialog-close.svg');
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-.dialog__title {
-  font-size: 48px;
-  font-weight: 600;
-  line-height: 72px;
-  margin: 0 0 40px;
-  color: #fff;
-}
-
-.dialog__label {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 28px;
-  color: #9DA5AF;
-  margin-bottom: 8px;
-}
-
 .dialog__password {
   position: relative;
 }

@@ -20,7 +20,7 @@ export default defineComponent({
   padding: 40px 160px 0;
   background-color: #0A1F38;
   transition: 0.5s all;
-  height: 99vh;
+  min-height: 100vh;
 }
 
 @media (max-width: 1440px) {

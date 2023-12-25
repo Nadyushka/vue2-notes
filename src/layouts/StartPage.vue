@@ -17,7 +17,7 @@ export default defineComponent({
 
 <style scoped>
 .start-page {
-  padding: 40px 160px 0;
+  padding: 40px 160px;
   background-color: #0A1F38;
   transition: 0.5s all;
 }
