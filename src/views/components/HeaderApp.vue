@@ -1,15 +1,16 @@
 <script>
 import {defineComponent} from 'vue'
-import { mapGetters } from 'vuex'
+import {mapGetters} from 'vuex'
 import LoginAndSignUp from "@/views/components/loginAndSignUp.vue";
 
 export default defineComponent({
   name: "HeaderApp",
   components: {LoginAndSignUp},
 
-  data () {
+  data() {
     return {
       openSignDialog: false,
+      showPopUp: false,
     }
   },
 
@@ -18,12 +19,27 @@ export default defineComponent({
   },
 
   methods: {
-    openModal () {
+    openModal() {
       this.openSignDialog = true
     },
 
     closeSignDialog() {
       this.openSignDialog = false
+    },
+
+    popUpToggle () {
+      this.showPopUp = !this.showPopUp
+    },
+
+    async logOut () {
+      try {
+        await this.$store.dispatch('authStore/logOut')
+
+        await this.$router.push('/')
+
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 
@@ -42,8 +58,19 @@ export default defineComponent({
     </div>
     <div v-else class="header__user">
       <div class="header__email">{{ getUserEmail }}</div>
-      <img src="@/assets/header_user-icon.svg" alt="user-icon" class="header__user-icon"/>
+      <img
+          src="@/assets/header_user-icon.svg"
+          alt="user-icon"
+          class="header__user-icon"
+          @click="popUpToggle"/>
+
+      <div v-if="showPopUp" class="header__pop-up">
+        <div class="header__pop-up-body" @click="logOut">
+          Выйти
+        </div>
+      </div>
     </div>
+
     <LoginAndSignUp
         :openSignDialog="openSignDialog"
         @close-dialog="closeSignDialog"
@@ -62,7 +89,7 @@ export default defineComponent({
 
 @media (max-width: 1440px) {
   .header {
-   margin-bottom: 20px;
+    margin-bottom: 20px;
   }
 }
 
@@ -88,6 +115,32 @@ export default defineComponent({
   display: flex;
   gap: 12px;
   align-items: center;
+  position: relative;
+}
+
+.header__pop-up {
+  position: absolute;
+  padding: 40px;
+  background-color: #1B2F46;
+  top: 70px;
+  right: 0px;
+  z-index: 99999;
+  border-radius: 12px;
+}
+
+.header__pop-up-body {
+  position: relative;
+  color: #B1C909;
+  cursor: pointer;
+}
+
+.header__pop-up-body::before {
+  content: '';
+  position: absolute;
+  border: 8px solid transparent;
+  border-bottom: 8px solid #1B2F46;
+  top: -55px;
+  right: -20px;
 }
 
 .header__email {

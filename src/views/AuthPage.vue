@@ -106,10 +106,17 @@ export default defineComponent({
   transition: 0.5s all;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1440px) {
   .auth__img {
     width: 627px;
     height: 579px;
+  }
+}
+
+@media (max-width: 900px) {
+  .auth__img {
+    width: 560px;
+    height: 518px;
   }
 }
 

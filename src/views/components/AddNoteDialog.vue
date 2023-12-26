@@ -10,6 +10,8 @@ export default defineComponent({
     return {
       title: '',
       text: '',
+      errorMessage: '',
+      timerId: undefined,
     }
   },
 
@@ -20,17 +22,36 @@ export default defineComponent({
       this.text = ''
     },
 
-    async createNote () {
-      try {
-        await this.$store.dispatch('notesStore/createNote', {
-          title: this.title,
-          content: this.text,
-        })
+    async createNote() {
 
-        this.closeAddNoteModal()
-      } catch (e) {
-        console.log(e)
-      }
+      await clearTimeout(this.timerId)
+      this.errorMessage = ''
+
+      setTimeout(async ()=> {
+        if (this.titleErrorMessage || this.textErrorMessage) {
+          this.errorMessage = 'Необходимо проверить введенные данные'
+          this.timerId = setTimeout(() => this.errorMessage = '', 3000)
+          return
+        }
+
+        if (!this.title || !this.text) {
+          this.errorMessage = 'Необходимо заполнить все поля'
+          this.timerId = setTimeout(() => this.errorMessage = '', 3000)
+          return
+        }
+
+        try {
+          await this.$store.dispatch('notesStore/createNote', {
+            title: this.title,
+            content: this.text,
+          })
+
+          this.closeAddNoteModal()
+        } catch (e) {
+          console.log(e)
+        }
+      }, 100)
+
     }
   },
 
@@ -43,44 +64,53 @@ export default defineComponent({
       return ''
     },
     textErrorMessage() {
-      if (this.text.length > 500) {
+      if (this.text.length > 250) {
         return 'Максимальная длина - 250 символов'
       }
 
       return ''
     },
+
+    showErrorMessage() {
+      return this.errorMessage.length > 0
+    }
   }
 })
 </script>
 
 <template>
-  <div
-      class="add-note"
-      :class="{ 'add-note__active': isAddNoteModalOpen }">
-    <div class="add-note__block">
-      <button
-          class="dialog__close-btn btn"
-          @click="closeAddNoteModal"/>
+  <div>
+    <div
+        class="add-note"
+        :class="{ 'add-note__active': isAddNoteModalOpen }">
+      <div class="add-note__block">
+        <button
+            class="dialog__close-btn btn"
+            @click="closeAddNoteModal"/>
 
-      <h2 class="dialog__title">Добавление заметки</h2>
-      <div class="dialog__label">Название заметки</div>
-      <input class="dialog__input input" v-model="title"/>
-      <div class="dialog__info">
-        <div class="dialog__error"> {{ titleErrorMessage }}</div>
-        <div class="dialog__length"> {{ title.length }}/100</div>
-      </div>
+        <h2 class="dialog__title">Добавление заметки</h2>
+        <div class="dialog__label">Название заметки</div>
+        <input class="dialog__input input" v-model="title"/>
+        <div class="dialog__info">
+          <div class="dialog__error"> {{ titleErrorMessage }}</div>
+          <div class="dialog__length"> {{ title.length }}/100</div>
+        </div>
 
-      <div class="dialog__label">Текст заметки</div>
-      <textarea class="dialog__textarea input" v-model="text"/>
-      <div class="dialog__info">
-        <div class="dialog__error"> {{ textErrorMessage }}</div>
-        <div class="dialog__length"> {{ text.length }}/250</div>
-      </div>
-      <div class="dialog__wrapper">
-        <button  class="dialog__create-btn btn" @click="createNote">Добавить</button>
+        <div class="dialog__label">Текст заметки</div>
+        <textarea class="dialog__textarea input" v-model="text"/>
+        <div class="dialog__info">
+          <div class="dialog__error"> {{ textErrorMessage }}</div>
+          <div class="dialog__length"> {{ text.length }}/250</div>
+        </div>
+        <div class="dialog__wrapper">
+          <button class="dialog__create-btn btn" @click="createNote">Добавить</button>
+        </div>
+
       </div>
 
     </div>
+
+    <div class="snackBar" :class="{'snackBar_active': showErrorMessage}"> {{ errorMessage }}</div>
   </div>
 </template>
 
@@ -170,5 +200,22 @@ export default defineComponent({
   margin-top: 24px;
   display: flex;
   justify-content: flex-end;
+}
+
+.snackBar {
+  position: fixed;
+  right: -100%;
+  bottom: 20px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid #0A1F38;
+  color: #ffffff;
+  z-index: 10000;
+  transition: 0.2s all;
+  background-color: #B1C909;
+}
+
+.snackBar_active {
+  right: 20px;
 }
 </style>

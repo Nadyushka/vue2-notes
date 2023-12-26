@@ -36,8 +36,10 @@ export default defineComponent({
 .note__item {
   background-color: #B1C909;
   position: relative;
-  flex: 0 0 calc(33.33% - 40px);
+  flex: 0 1 calc(33.33% - 40px);
   border-radius: 12px;
+  height: auto;
+  align-self: flex-start
 }
 
 .note__corner {
@@ -79,6 +81,7 @@ export default defineComponent({
   line-height: 32px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.40);
   color: #fff;
+  width: 90%;
 }
 
 .note__content {
