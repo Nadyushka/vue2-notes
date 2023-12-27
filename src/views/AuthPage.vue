@@ -38,7 +38,13 @@ export default defineComponent({
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+  .auth {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1050px) {
   .auth {
     flex-direction: column;
     padding: 40px 40px 0;
@@ -62,10 +68,18 @@ export default defineComponent({
   margin:0 0 40px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1300px) {
+  .auth__h1 {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 1050px) {
   .auth__h1 {
     text-align: center;
     max-width: 100%;
+    margin: 0 auto;
+    font-size: 104px;
   }
 }
 
@@ -73,7 +87,8 @@ export default defineComponent({
   .auth__h1 {
     font-size: 60px;
     line-height: 64px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
+    max-width: 80%;
   }
 }
 
@@ -87,7 +102,7 @@ export default defineComponent({
   margin: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
   .auth__h3 {
     text-align: center;
     max-width: 100%;
@@ -99,21 +114,25 @@ export default defineComponent({
     font-size: 24px;
     font-weight: 400;
     line-height: 36px;
+    width: 90%;
+    margin: 0 auto;
   }
 }
 
 .auth__img {
   transition: 0.5s all;
+  width: 897px;
+  height: 878px;
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1700px) {
   .auth__img {
     width: 627px;
     height: 579px;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .auth__img {
     width: 560px;
     height: 518px;

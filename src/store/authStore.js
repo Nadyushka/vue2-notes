@@ -21,8 +21,8 @@ export default {
             return state.userEmail
         },
 
-        getToken(state) {
-            return state.accessToken
+        getErrorMessage(state) {
+            return state.errorMessage
         }
     },
 
@@ -35,8 +35,11 @@ export default {
 
                 return response
             } catch (error) {
-                console.error(error);
-                commit('SET_ERROR', error.message)
+                if (typeof error.response.data.message === "string") {
+                    commit('SET_ERROR', error.response.data.message)
+                } else {
+                    commit('SET_ERROR', error.response.data.message[0])
+                }
             }
         },
 
@@ -48,8 +51,11 @@ export default {
 
                 return response
             } catch (error) {
-                console.error(error);
-                commit('SET_ERROR', error.message)
+                if (typeof error.response.data.message === "string") {
+                    commit('SET_ERROR', error.response.data.message)
+                } else {
+                    commit('SET_ERROR', error.response.data.message[0])
+                }
             }
         },
 
@@ -59,13 +65,16 @@ export default {
 
                 commit('SET_AUTH', true);
                 commit('SET_EMAIL', payload.email)
-
                 localStorage.setItem('accessToken', response.data.accessToken)
 
                 return response
             } catch (error) {
-                console.error(error);
-                commit('SET_ERROR', error.message)
+                if (typeof error.response.data.message === "string") {
+                    commit('SET_ERROR', error.response.data.message)
+                } else {
+                    commit('SET_ERROR', error.response.data.message[0])
+                }
+
             }
         },
 

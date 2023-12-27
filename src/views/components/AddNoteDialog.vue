@@ -138,11 +138,52 @@ export default defineComponent({
 }
 
 .add-note__block {
-  width: 780px;
+  max-width: 780px;
   padding: 80px;
   background-color: #1B2F46;
   border-radius: 40px;
   position: relative;
+}
+
+@media (max-width: 1440px) {
+  .add-note__block {
+    max-width: 594px;
+    padding: 56px;
+  }
+}
+
+@media (max-width: 900px) {
+  .add-note__block {
+    max-width: 688px;
+  }
+}
+
+@media (max-width: 600px) {
+  .add-note__block {
+    max-width: 352px;
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .dialog__title {
+   width: 90%;
+    line-height: 72px;
+  }
+}
+
+@media (max-width: 900px) {
+  .dialog__title {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .dialog__title {
+    font-size: 32px;
+    line-height: 36px;
+    margin-bottom: 38px;
+  }
 }
 
 .dialog__input {
@@ -175,6 +216,18 @@ export default defineComponent({
   user-select: text;
 }
 
+@media (max-width: 1440px) {
+  .dialog__textarea {
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dialog__textarea {
+    min-height: 160px;
+  }
+}
+
 .dialog__info {
   display: flex;
   justify-content: space-between;
@@ -191,9 +244,21 @@ export default defineComponent({
   color: #9DA5AF;
 }
 
+@media (max-width: 600px) {
+  .dialog__length {
+    line-height: 28px;
+  }
+}
+
 .dialog__create-btn {
   padding: 12px 24px;
   border: none;
+}
+
+@media (max-width: 600px) {
+  .dialog__create-btn {
+    width: 100%;
+  }
 }
 
 .dialog__wrapper {

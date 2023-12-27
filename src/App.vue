@@ -22,7 +22,9 @@ export default {
 
   async mounted() {
      try {
-      await this.$store.dispatch('authStore/me')
+       if (localStorage.getItem('accessToken')) {
+         await this.$store.dispatch('authStore/me')
+       }
      } catch (e) {
        console.log(e)
      }

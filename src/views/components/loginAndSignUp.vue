@@ -1,5 +1,6 @@
 <script>
 import {defineComponent} from 'vue'
+import {mapGetters} from "vuex";
 
 export default defineComponent({
   name: "loginAndSignUp",
@@ -68,6 +69,9 @@ export default defineComponent({
   },
 
   computed: {
+
+    ...mapGetters('authStore', ['getErrorMessage']),
+
     passwordIcon() {
       return this.isPasswordVisible ? require('@/assets/input-hide.svg') : require('@/assets/input-visible.svg')
     },
@@ -154,7 +158,7 @@ export default defineComponent({
         </button>
       </div>
 
-      <div class="dialog__error">Пользователь с таким логином не найден</div>
+      <div class="dialog__error" v-if="getErrorMessage"> {{ getErrorMessage }}</div>
     </div>
 
   </div>
@@ -185,11 +189,58 @@ export default defineComponent({
 }
 
 .dialog__block {
-  width: 780px;
+  max-width: 780px;
   padding: 80px;
   background-color: #1B2F46;
   border-radius: 40px;
   position: relative;
+}
+
+@media (max-width: 1440px) {
+  .dialog__block {
+    max-width: 594px;
+    padding: 56px;
+  }
+}
+
+@media (max-width: 900px) {
+  .dialog__block {
+    max-width: 688px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dialog__block {
+    max-width: 352px;
+    padding: 80px 16px;
+  }
+}
+
+.dialog__title {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 72px;
+}
+
+@media (max-width: 1440px) {
+  .dialog__title {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 900px) {
+  .dialog__title {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .dialog__title {
+    font-size: 32px;
+    max-width: 90%;
+    line-height: 36px;
+    margin-bottom: 28px;
+  }
 }
 
 .dialog__password {
@@ -207,6 +258,12 @@ export default defineComponent({
   cursor: pointer;
   transition: 0.2s all;
   font-size: 18px;
+}
+
+@media (max-width: 600px) {
+  .dialog__input {
+    margin-bottom: 18px;
+  }
 }
 
 .dialog__input::placeholder {
@@ -231,6 +288,13 @@ export default defineComponent({
   margin-bottom: 20px;
 }
 
+@media (max-width: 600px) {
+  .dialog__text {
+    flex-direction: column-reverse;
+    font-size: 14px;
+  }
+}
+
 .dialog__action {
   color: #B1C909;
   transition: 0.2s all;
@@ -241,10 +305,31 @@ export default defineComponent({
   color: #fff;
 }
 
+@media (max-width: 1440px) {
+  .dialog__action {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  .dialog__action {
+    display: inline;
+  }
+}
+
+
+
 .dialog__enter {
   border: none;
   padding: 12px 24px;
 }
+
+@media (max-width: 600px) {
+  .dialog__enter {
+    width: 100%;
+  }
+}
+
 
 .dialog__error {
   border-radius: 24px;

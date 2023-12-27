@@ -24,8 +24,12 @@ export default {
 
                 return response
             } catch (error) {
-                console.error(error);
-                commit('SET_ERROR', error.message)
+
+                if (typeof error.response.data.message === "string") {
+                    commit('SET_ERROR', error.response.data.message)
+                } else {
+                    commit('SET_ERROR', error.response.data.message[0])
+                }
             }
         },
 
@@ -39,8 +43,11 @@ export default {
 
                 return response
             } catch (error) {
-                console.error(error);
-                commit('SET_ERROR', error.message)
+                if (typeof error.response.data.message === "string") {
+                    commit('SET_ERROR', error.response.data.message)
+                } else {
+                    commit('SET_ERROR', error.response.data.message[0])
+                }
             }
         },
 
@@ -54,8 +61,11 @@ export default {
 
                 return response
             } catch (error) {
-                console.error(error);
-                commit('SET_ERROR', error.message)
+                if (typeof error.response.data.message === "string") {
+                    commit('SET_ERROR', error.response.data.message)
+                } else {
+                    commit('SET_ERROR', error.response.data.message[0])
+                }
             }
         },
 

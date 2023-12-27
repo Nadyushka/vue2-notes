@@ -36,15 +36,28 @@ export default defineComponent({
 .note__item {
   background-color: #B1C909;
   position: relative;
-  flex: 0 1 calc(33.33% - 40px);
-  border-radius: 12px;
+  flex: 0 1 calc(33.33% - 80px / 3);
+  border-radius: 12px 50px 12px 12px;
   height: auto;
-  align-self: flex-start
+  align-self: flex-start;
+
 }
+
+@media (max-width: 1440px) {
+  .note__item {
+    flex: 0 1 calc(33.33% - 40px / 3);
+  }
+}
+
+@media (max-width: 1000px) {
+  .note__item {
+    flex: 0 1 100%;
+  }
+}
+
 
 .note__corner {
   position: absolute;
-  background-position: 0 0;
   background-repeat: no-repeat;
   background-color: #0A1F38;
   width: 40px;
@@ -53,27 +66,26 @@ export default defineComponent({
   right: 0;
   border: none;
   border-radius: 0 0 0 12px;
-  overflow: hidden;
 }
 
 .note__triangle {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
 }
 
 .note__triangle::before {
   content: '';
   position: absolute;
-  border: 21px solid transparent;
+  left: -1px;
+  top: 0;
+  border: 22px solid transparent;
   border-bottom: 21px solid #A5BB0C;
   border-left: 21px solid #A5BB0C;
-  border-radius: 0 0 0 12px;
+  border-radius: 0 0 0 11px;
 }
 
 .note__title {
-  padding: 20px 28px;
   margin: 0;
   font-size: 24px;
   font-style: normal;
@@ -81,7 +93,15 @@ export default defineComponent({
   line-height: 32px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.40);
   color: #fff;
-  width: 90%;
+  padding: 20px 10% 20px 28px;
+}
+
+@media (max-width: 600px) {
+  .note__title {
+    font-size: 20px;
+    line-height: 26px;
+    padding-right: 30%;
+  }
 }
 
 .note__content {
@@ -92,6 +112,14 @@ export default defineComponent({
   line-height: 32px;
   color: #fff;
   margin-bottom: 45px;
+}
+
+@media (max-width: 600px) {
+  .note__content {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 60px;
+  }
 }
 
 .note__bottom {

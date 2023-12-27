@@ -48,7 +48,7 @@ export default defineComponent({
 
 <template>
   <header class="header">
-    <img src="@/assets/logo.svg" alt="logo" class="header__logo"/>
+    <img src="@/assets/logo.svg" alt="logo" class="header__logo" :class="{'header__logo_mobile': isUserAuth}"/>
     <div
         v-if="!isUserAuth"
         class="header__left btn"
@@ -64,17 +64,23 @@ export default defineComponent({
           class="header__user-icon"
           @click="popUpToggle"/>
 
-      <div v-if="showPopUp" class="header__pop-up">
+      <div :class="{ 'header__pop-up_active': showPopUp }"
+           class="header__pop-up">
         <div class="header__pop-up-body" @click="logOut">
           Выйти
         </div>
       </div>
     </div>
 
+    <div v-if="showPopUp"
+         class="header__pop-up-bg"
+         @click="popUpToggle"/>
+
     <LoginAndSignUp
         :openSignDialog="openSignDialog"
         @close-dialog="closeSignDialog"
     />
+
   </header>
 </template>
 
@@ -84,7 +90,7 @@ export default defineComponent({
   justify-content: space-between;
   max-width: 1600px;
   margin: 0 auto 40px;
-  transition: 0.5s all;
+  transition: 0.2s all;
 }
 
 @media (max-width: 1440px) {
@@ -94,13 +100,20 @@ export default defineComponent({
 }
 
 .header__logo {
-  transition: 0.5s all;
+  transition: 0.5s width;
 }
 
 @media (max-width: 650px) {
   .header__logo {
     width: 154px;
     object-fit: contain;
+  }
+
+  .header__logo_mobile {
+    width: 65px;
+    object-fit: cover;
+    object-position: 0 0;
+    scale: 0.5;
   }
 }
 
@@ -118,14 +131,30 @@ export default defineComponent({
   position: relative;
 }
 
+.header__pop-up-bg {
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 9999;
+}
+
 .header__pop-up {
   position: absolute;
-  padding: 40px;
   background-color: #1B2F46;
   top: 70px;
-  right: 0px;
+  right: 0;
   z-index: 99999;
   border-radius: 12px;
+  padding: 40px;
+  opacity: 0;
+  transition: 0.5s all;
+}
+
+.header__pop-up_active {
+  opacity: 1;
 }
 
 .header__pop-up-body {
