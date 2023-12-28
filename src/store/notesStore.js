@@ -69,7 +69,9 @@ export default {
             }
         },
 
-
+        setUpdatedNotes ({commit}, notes) {
+            commit('SET_NOTES', notes)
+        }
     },
 
     mutations: {

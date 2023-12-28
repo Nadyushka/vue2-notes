@@ -56,6 +56,8 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 40px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .home > * {

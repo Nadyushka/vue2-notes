@@ -1,26 +1,68 @@
 <script>
 import {defineComponent} from 'vue'
+import {mapGetters} from "vuex";
 
 export default defineComponent({
   name: "NoteItem",
 
   props: ['note'],
 
+  computed: {
+    ...mapGetters('notesStore', ['getNotes'])
+  },
+
   methods: {
-    async deleteNote (noteId) {
+    async deleteNote(noteId) {
       try {
         await this.$store.dispatch('notesStore/deleteNote', noteId)
 
       } catch (e) {
         console.log(e)
       }
-    }
-  }
+    },
+
+    dragStart(event, id) {
+      event.dataTransfer.setData('draggableItemId', id)
+    },
+    drop(event, id) {
+      const draggableItemId = +event.dataTransfer.getData('draggableItemId')
+      const dragItemIdx = this.getNotes.findIndex(note => note.id === draggableItemId)
+      const dropItemIdx = this.getNotes.findIndex(note => note.id === id)
+      const note = this.getNotes.find(note => note.id === draggableItemId)
+
+      const currentNotes = [...this.getNotes]
+
+      currentNotes.splice(dragItemIdx, 1)
+      currentNotes.splice(dropItemIdx, 0, note)
+
+      document.querySelectorAll('.note__item').forEach(note => {
+        note.classList.remove('note__item_dragover')
+      })
+
+      this.$store.dispatch('notesStore/setUpdatedNotes', currentNotes)
+    },
+    dragover(event) {
+      const noteItem = event.target.closest('.note__item')
+      noteItem.classList.add('note__item_dragover')
+    },
+    dragleave(event) {
+      const noteItem = event.target.closest('.note__item')
+      noteItem.classList.remove('note__item_dragover')
+    },
+  } ,
+
 })
 </script>
 
 <template>
-  <div class="note__item">
+  <div
+      class="note__item"
+      @dragstart="dragStart($event, note.id)"
+      @drop.prevent="drop($event, note.id)"
+      @dragover.prevent="dragover($event)"
+      @dragleave="dragleave($event)"
+      draggable="true"
+  >
     <div class="note__corner">
       <div class="note__triangle"/>
     </div>
@@ -40,7 +82,13 @@ export default defineComponent({
   border-radius: 12px 50px 12px 12px;
   height: auto;
   align-self: flex-start;
+  cursor: grab;
+}
 
+.note__item_dragover {
+  transition: 0.2s all;
+  background-color: #819400;
+  scale: 0.95;
 }
 
 @media (max-width: 1440px) {

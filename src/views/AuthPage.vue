@@ -26,29 +26,18 @@ export default defineComponent({
 .auth {
   display: flex;
   align-items: center;
-  gap: 214px;
   margin: 0 auto;
   max-width: 1600px;
   transition: 0.5s all;
+  justify-content: space-between;
 }
 
-@media (max-width: 1440px) {
-  .auth {
-    gap: 90px;
-  }
-}
 
-@media (max-width: 1200px) {
-  .auth {
-    gap: 20px;
-  }
-}
 
 @media (max-width: 1050px) {
   .auth {
     flex-direction: column;
     padding: 40px 40px 0;
-    gap: 0;
   }
 }
 
