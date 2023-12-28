@@ -1,5 +1,4 @@
 import VueRouter from "vue-router";
-// import {authGuard} from "@/router/authGuard/authGuard.js";
 import Vue from "vue";
 
 Vue.use(VueRouter);
@@ -29,7 +28,5 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes,
 });
-
-// router.beforeEach(authGuard)
 
 export default router;

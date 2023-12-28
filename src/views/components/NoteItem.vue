@@ -142,6 +142,7 @@ export default defineComponent({
   border-bottom: 1px solid rgba(0, 0, 0, 0.40);
   color: #fff;
   padding: 20px 10% 20px 28px;
+  word-break: break-all;
 }
 
 @media (max-width: 600px) {
@@ -160,6 +161,7 @@ export default defineComponent({
   line-height: 32px;
   color: #fff;
   margin-bottom: 45px;
+  word-break: break-all;
 }
 
 @media (max-width: 600px) {

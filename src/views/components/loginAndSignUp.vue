@@ -71,7 +71,7 @@ export default defineComponent({
   computed: {
 
     ...mapGetters('authStore', ['getErrorMessage']),
-
+    
     passwordIcon() {
       return this.isPasswordVisible ? require('@/assets/input-hide.svg') : require('@/assets/input-visible.svg')
     },

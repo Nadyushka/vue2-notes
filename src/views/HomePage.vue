@@ -41,7 +41,10 @@ export default defineComponent({
 
 <template>
   <div class="home">
-    <NoteItem :note="note" v-for="note in getNotes" :key="note.id"/>
+    <NoteItem
+        :note="note"
+        v-for="note in getNotes"
+        :key="note.id"/>
     <AddNoteDialog
         @close-modal="closeModal"
         :isAddNoteModalOpen="isAddNoteModalOpen"/>
